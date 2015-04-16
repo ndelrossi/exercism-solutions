@@ -11,22 +11,13 @@ class Robot
 
     reset if (@@all_names.include? newName)
 
-    @@all_names.delete(@name)
-    @@all_names << newName
-
+    @@all_names.map! { |n| n == @name ? newName : n }
     @name = newName
   end
 
   private
 
   def create_name
-    letters = ('A'..'Z').to_a
-    numbers = (0..9).to_a
-
-    random_char(letters, 2) + random_char(numbers, 3)
-  end
-
-  def random_char(charSet, quantity)
-    charSet[rand(charSet.length)].to_s * quantity
+    (('A'..'Z').to_a.sample(2) + (0..9).to_a.sample(3)).join
   end
 end
