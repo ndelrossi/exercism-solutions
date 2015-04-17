@@ -9,7 +9,10 @@ class Robot
   def reset
     newName = create_name
 
-    reset if (@@all_names.include? newName)
+    if (@@all_names.include? newName)
+      reset
+      return
+    end
 
     @@all_names.map! { |n| n == @name ? newName : n }
     @name = newName
