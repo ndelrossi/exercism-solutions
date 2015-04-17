@@ -1,15 +1,4 @@
 function Robot() {
-  function newName() {
-    var newName = makeRandomName();
-
-    if (Robot.currentNames.indexOf(newName) != -1) {
-      newName();
-    }
-
-    Robot.currentNames.push(newName);
-    return newName;
-  }
-
   function makeRandomName() {
     var LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     var NUMBERS = "0123456789";
@@ -24,14 +13,29 @@ function Robot() {
     return getChars(LETTERS, 2) + getChars(NUMBERS, 3);
   }
 
-  this.reset = function() {
-    var indexOfOldName = Robot.currentNames.indexOf(this.name);
+  function nameExists(name) {
+    return Robot.currentNames.indexOf(name) >= 0;
+  }
+
+  function replaceNamesInList(nameToRemove, nameToAdd) {
+    var indexOfOldName = Robot.currentNames.indexOf(nameToRemove);
 
     if (indexOfOldName > -1) {
       Robot.currentNames.splice(indexOfOldName, 1);
     }
+    Robot.currentNames.push(nameToAdd);
+  }
 
-    this.name = newName();
+  this.reset = function() {
+    var newName = makeRandomName();
+
+    if (nameExists(newName)) {
+      this.reset();
+      return;
+    }
+
+    replaceNamesInList(this.name, newName);
+    this.name = newName;
   }
 
   this.reset();
