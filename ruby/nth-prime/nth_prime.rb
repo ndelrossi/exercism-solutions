@@ -13,7 +13,7 @@ class Prime
   private
 
   def isPrime?(num)
-    (2...num).each do |i|
+    (2..Math.sqrt(num)).each do |i|
       return false if num % i == 0
     end
     true
