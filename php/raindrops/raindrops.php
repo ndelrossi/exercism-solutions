@@ -1,23 +1,18 @@
 <?php
 
 function raindrops($number) {
+    $resultHash = array(
+        3 => "Pling",
+        5 => "Plang",
+        7 => "Plong",
+    );
+
     $result = '';
-
-    if ($number % 3 == 0) {
-        $result .= "Pling";
+    forEach ($resultHash as $key => $value) {
+        if ($number % $key == 0) {
+            $result .= $value;
+        }
     }
 
-    if ($number % 5 == 0) {
-        $result .= "Plang";
-    }
-
-    if ($number % 7 == 0) {
-        $result .= "Plong";
-    }
-
-    if (empty($result)) {
-        $result = (string)$number;
-    }
-
-    return $result;
+    return $result != null ? $result : (string)$number;
 }
